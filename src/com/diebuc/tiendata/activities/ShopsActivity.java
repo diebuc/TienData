@@ -1,6 +1,7 @@
 package com.diebuc.tiendata.activities;
 
-import com.db.shoppingcenter.R;
+
+import com.diebuc.tiendata.R;
 import com.diebuc.tiendata.fragments.ShopListFragment;
 import com.diebuc.tiendata.fragments.ShopMapFragment;
 
