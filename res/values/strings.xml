@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tiendata Argentina </string>
+    <string name="action_share_comment">Compartir</string>
+    <string name="action_favorite_comment">Favorito</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string-array name="shops_array">
+        <item>Winery</item>
+        <item>Yenny - El Ateneo</item>
+        <item>El Mundo del Juguete</item>
+        <item>Zara</item>
+    </string-array>
+
+    <string name="title_activity_shop_detail_photo">Más información de la tienda</string>
+    <string name="shop_detail_share">Te comparto información de %1$s. La dirección es %2$s y el teléfono es %3$s</string>
+    <string name="shop_detail_photo_share">Te comparto esta imagen de la tienda %1$s</string>
+    <string name="title_activity_shop_detail">Detalle de la Tienda</string>
+    <string name="activity_shop_detail_hour_text">Horarios</string>
+    <string name="activity_shop_detail_buttonCallText">LLAMAR</string>
+    <string name="activity_shop_detail_photo_comment">Esta es la cava de vinos antiguos loren impsun
+		BlahBlah BlahBlah BlahBlah</string>
+    <string name="shop_comment_button_text">Comentar</string>
+
+    <string-array name="shops_comments">
+        <item>Se consiguen los mejores vinos de Argentina</item>
+        <item>La atencion al cliente es verdaderamente buena</item>
+        <item>Voy siempre. Tiene mucha variedad de vinos</item>
+    </string-array>
+
+    <string name="title_activity_main">Tiendata</string>
+    <string name="title_activity_shopping_center">ShoppingCenterActivity</string>
+
+    <string-array name="drawer_options">
+        <item>Imágenes</item>
+        <item>Tiendas</item>
+        <item>Comunidad</item>
+    </string-array>
+    
+      <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Cerrar</string>
+
+</resources>
