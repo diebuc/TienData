@@ -1,8 +1,13 @@
 package com.diebuc.tiendata.fragments;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.Request.Method;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.diebuc.tiendata.R;
 import com.diebuc.tiendata.activities.ShopDetailActivity;
 
@@ -19,11 +32,12 @@ public class ShopListFragment extends Fragment implements OnItemClickListener {
 
 	private ListView listViewShops;
 	private String[] shops;
+	private RequestQueue requestQueue;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+
 		listViewShops.setAdapter(new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, shops));
 		listViewShops.setOnItemClickListener(this);
@@ -34,15 +48,20 @@ public class ShopListFragment extends Fragment implements OnItemClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.fragment_shop_list, container,false);
+		View view = inflater.inflate(R.layout.fragment_shop_list, container,
+				false);
 		listViewShops = (ListView) view.findViewById(R.id.listViewShops);
 		shops = getResources().getStringArray(R.array.shops_array);
+
+		requestQueue = Volley.newRequestQueue(getActivity());
+		APICall();
 
 		return view;
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View view, int position,
+			long arg3) {
 		Intent intent = new Intent(getActivity(), ShopDetailActivity.class);
 
 		Bundle extras = new Bundle();
@@ -60,6 +79,39 @@ public class ShopListFragment extends Fragment implements OnItemClickListener {
 
 	}
 
+	public void APICall() {
+		String url = "http://10.0.2.2:3000/stores.json";
 
+		Response.ErrorListener errorListener = new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e("RESPONSE", error.getMessage());
+			}
+
+		};
+		
+		Response.Listener<JSONArray> listenerArray= new Response.Listener<JSONArray>() {
+			@Override
+			public void onResponse(JSONArray response) {
+				// TODO Auto-generated method stub
+				Log.e("RESPONSE", response.toString());
+			}
+		};  
+
+		
+		JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,listenerArray, errorListener);
+
+		
+		/*JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+				Request.Method.GET, url, null, successListener,
+				errorListener);
+		
+		requestQueue.add(jsonObjectRequest);*/
+
+		requestQueue.add(jsonArrayRequest);
+		
+	}
+	
 
 }
