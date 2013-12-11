@@ -1,5 +1,9 @@
 package com.diebuc.tiendata.fragments;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +31,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.diebuc.tiendata.R;
 import com.diebuc.tiendata.activities.ShopDetailActivity;
+import com.diebuc.tiendata.data.Store;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ShopListFragment extends Fragment implements OnItemClickListener {
 
@@ -91,10 +100,27 @@ public class ShopListFragment extends Fragment implements OnItemClickListener {
 
 		};
 		
+	
 		Response.Listener<JSONArray> listenerArray= new Response.Listener<JSONArray>() {
 			@Override
 			public void onResponse(JSONArray response) {
 				// TODO Auto-generated method stub
+				List<Store> storesList = null;
+				ObjectMapper mapper = new ObjectMapper();
+   			    try {
+					storesList = mapper.readValue(response.toString() , new TypeReference<ArrayList<Store>>() { });
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+   			    Log.e("RESPONSE", String.valueOf(storesList.size()) );
 				Log.e("RESPONSE", response.toString());
 			}
 		};  
