@@ -223,7 +223,7 @@ public class MainActivity extends ActionBarActivity implements
 		}else{
 			albumDir=new File(Environment.getExternalStorageDirectory()+"/dcim/"+albumName);
 		}
-		albumDir.mkdirs()
+		albumDir.mkdirs();
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",Locale.getDefault()).format(Calendar.getInstance().getTime());
 		
