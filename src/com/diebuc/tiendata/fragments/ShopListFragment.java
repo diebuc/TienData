@@ -120,8 +120,8 @@ public class ShopListFragment extends Fragment implements OnItemClickListener {
 					e.printStackTrace();
 				}
 				
-   			    Log.e("RESPONSE", String.valueOf(storesList.size()) );
-				Log.e("RESPONSE", response.toString());
+   			    //Log.e("RESPONSE", String.valueOf(storesList.size()) );
+				//Log.e("RESPONSE", response.toString());
 			}
 		};  
 
