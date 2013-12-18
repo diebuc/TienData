@@ -4,8 +4,12 @@ package com.diebuc.tiendata.fragments;
 import com.diebuc.tiendata.R;
 import com.diebuc.tiendata.helper.PhotoListAdapter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-public class CommunityFragment extends Fragment  {
+public class CommunityFragment extends Fragment {
 
 	private ListView listViewPhotos;
 	private ImageButton buttonTakePhoto;
@@ -40,14 +44,21 @@ public class CommunityFragment extends Fragment  {
 		buttonTakePhoto.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-			
-				startActivityForResult(intent,0);
+				
+				new PhotoDialogFragment().show(getChildFragmentManager(), "");
 				
 			}
 		});
 		
 		return view;
 	}
+	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 }
+
+

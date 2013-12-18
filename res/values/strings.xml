@@ -39,7 +39,11 @@
         <item>Comunidad</item>
     </string-array>
     
-      <string name="drawer_open">Abrir</string>
+    <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Cerrar</string>
 
+    <string name="photo_dialog_message">Seleccione una nueva foto</string>
+    <string name="photo_dialog_camera">Tomar foto</string>
+    <string name="photo_dialog_gallery">Traer desde la galeria</string>
+    
 </resources>
