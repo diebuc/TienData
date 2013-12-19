@@ -14,10 +14,10 @@
         <item>Zara</item>
     </string-array>
 
-    <string name="title_activity_shop_detail_photo">Más información de la tienda</string>
+    <string name="activity_shop_detail_photo_title">Más información de la tienda</string>
     <string name="shop_detail_share">Te comparto información de %1$s. La dirección es %2$s y el teléfono es %3$s</string>
     <string name="shop_detail_photo_share">Te comparto esta imagen de la tienda %1$s</string>
-    <string name="title_activity_shop_detail">Detalle de la Tienda</string>
+    <string name="activity_shop_detail_title">Detalle de la Tienda</string>
     <string name="activity_shop_detail_hour_text">Horarios</string>
     <string name="activity_shop_detail_buttonCallText">LLAMAR</string>
     <string name="activity_shop_detail_photo_comment">Esta es la cava de vinos antiguos loren impsun
@@ -30,8 +30,8 @@
         <item>Voy siempre. Tiene mucha variedad de vinos</item>
     </string-array>
 
-    <string name="title_activity_main">Tiendata</string>
-    <string name="title_activity_shopping_center">ShoppingCenterActivity</string>
+    <string name="activity_main_title">Tiendata</string>
+    <string name="activity_shopping_center_title">ShoppingCenterActivity</string>
 
     <string-array name="drawer_options">
         <item>Imágenes</item>
@@ -45,5 +45,7 @@
     <string name="photo_dialog_message">Seleccione una nueva foto</string>
     <string name="photo_dialog_camera">Tomar foto</string>
     <string name="photo_dialog_gallery">Traer desde la galeria</string>
+    
+    <string name="activity_photo_btn_addPhoto">Agregar foto</string>
     
 </resources>
