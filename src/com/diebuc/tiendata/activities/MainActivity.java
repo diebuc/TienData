@@ -1,21 +1,7 @@
 package com.diebuc.tiendata.activities;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-import android.app.AlertDialog.Builder;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -29,23 +15,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.diebuc.tiendata.R;
 import com.diebuc.tiendata.fragments.CommunityFragment;
-import com.diebuc.tiendata.fragments.PhotoDialogFragment.NoticeDialogListener;
 import com.diebuc.tiendata.fragments.ShoppingCenterPhotosFragment;
 import com.diebuc.tiendata.fragments.ShopsContentFragment;
 
-public class MainActivity extends ActionBarActivity implements
-		NoticeDialogListener {
+public class MainActivity extends ActionBarActivity {
 
-	private static final int LOAD_IMAGE = 1;
-	private static final int CAMERA = 2;
-
-	String photoPath;
-	
 	private DrawerLayout drawerLayout;
 	private ListView drawerList;
 	private String[] drawerOptions;
@@ -97,7 +75,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		manager.beginTransaction().add(R.id.contentFrame, fragments[0])
 				.add(R.id.contentFrame, fragments[1])
-				.add(R.id.contentFrame, fragments[2]).hide(fragments[1])
+				.add(R.id.contentFrame, fragments[2],"community").hide(fragments[1])
 				.hide(fragments[2]).commit();
 
 	}
@@ -176,118 +154,6 @@ public class MainActivity extends ActionBarActivity implements
 
 			setContent(position);
 
-		}
-	}
-
-	@Override
-	public void onDialogPositiveClick() {
-		Intent intent = new Intent(Intent.ACTION_PICK,
-				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		startActivityForResult(intent, LOAD_IMAGE);
-	}
-
-	@Override
-	public void onDialogNegativeClick() {
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File photo = setupFile();
-		String photoPath = photo.getAbsolutePath();
-		intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));
-		startActivityForResult(intent, CAMERA);
-	}
-
-    public Bitmap resizeBitmap(int targetW, int targetH) {
-		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-		bmOptions.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(photoPath, bmOptions);
-		int photoW = bmOptions.outWidth;
-		int photoH = bmOptions.outHeight;
-
-		int scaleFactor = 1;
-		if ((targetW > 0) || (targetH > 0)) {
-			scaleFactor = Math.min(photoW/targetW, photoH/targetH);	
-		}
-
-		bmOptions.inJustDecodeBounds = false;
-		bmOptions.inSampleSize = scaleFactor;
-		bmOptions.inPurgeable = true;
-
-		return BitmapFactory.decodeFile(photoPath, bmOptions);    	
-    }
-	
-	private File setupFile() {
-		File albumDir;
-		String albumName ="ejemplo";
-		if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.FROYO){
-			albumDir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),albumName);
-			
-		}else{
-			albumDir=new File(Environment.getExternalStorageDirectory()+"/dcim/"+albumName);
-		}
-		albumDir.mkdirs();
-		
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",Locale.getDefault()).format(Calendar.getInstance().getTime());
-		
-		String imageFileName = "IMG_" +timeStamp +".jpg";
-		File image = new File(albumDir + "/" + imageFileName);
-		
-		return image;
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		switch (requestCode) {
-		case LOAD_IMAGE:
-			if (resultCode == RESULT_OK) {
-				fromGallery(data);
-			}
-			break;
-		case CAMERA:
-			if (resultCode == RESULT_OK) {
-				fromCamera(data);
-			}
-			break;
-		}
-
-	}
-
-	private void fromCamera(Intent data) {
-		if (data != null) {
-			Bundle extras = data.getExtras();
-			if (extras != null) {
-
-				
-				//Bitmap bitmap = resizeBitmap(img.getWidth(),img.getHeight());
-				//img.setImageBitmap(bitmap);
-				
-				Intent mediaScan = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
-				File file = new File(photoPath);
-				Uri contentUri = Uri.fromFile(file);
-				mediaScan.setData(contentUri);
-				this.sendBroadcast(mediaScan);
-				
-				// ImageView img = (ImageView)findViewById();
-				// img.setImageBitmap((Bitmap)extras.get("data"));
-			}
-		}
-	}
-
-	private void fromGallery(Intent data) {
-		if (data != null) {
-
-			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-			Cursor cursor = getContentResolver().query(selectedImage,
-					filePathColumn, null, null, null);
-			if (cursor.moveToFirst()) {
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String picturePath = cursor.getString(columnIndex);
-				cursor.close();
-
-				// ImageView img = (ImageView)findViewById();
-				// img.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-			}
 		}
 	}
 

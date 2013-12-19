@@ -41,6 +41,12 @@
             android:name="com.diebuc.tiendata.fragments.ShoppingCenterActivity"
             android:label="@string/title_activity_shopping_center" >
         </activity>
-    </application>
+
+       <activity
+            android:name="com.diebuc.tiendata.activities.PhotoActivity"
+            android:label="@string/title_activity_shopping_center" >
+        </activity>
+        
+        </application>
 
 </manifest>
